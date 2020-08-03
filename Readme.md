@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Игорь Бабушкин](https://up.htmlacademy.ru/ecmascript/12/user/185816).
-* Наставник: `Неизвестно`.
+* Наставник: [Убайд Исаев](https://up.htmlacademy.ru/ecmascript/12/user/1340949).
 
 ---
 
