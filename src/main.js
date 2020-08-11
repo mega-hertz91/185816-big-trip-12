@@ -9,8 +9,34 @@ import {createEventDay} from "./views/event-day";
 import {createEventDayList} from "./views/event-day-list";
 import {createEventNewDestinationTemplate} from "./views/event-new-destination";
 import {render} from "./utils";
+import {renderPointTripItem} from "./mock/trip";
+import {parseDateDayFormat} from "./mock/trip";
 
-const EVENT_COUNT = 3;
+const TRIPS_COUNT = 20;
+const tripList = new Array(TRIPS_COUNT).fill().map(renderPointTripItem);
+
+tripList.sort(function (a, b) {
+  if (a.dateStart > b.dateStart) {
+    return 1;
+  }
+  if (a.dateStart < b.dateStart) {
+    return -1;
+  }
+
+  return 0;
+});
+
+const trips = tripList.reduce((r, a) => {
+
+  r[a.dateStart] = r[a.dateStart] || [];
+
+  r[a.dateStart].push(a);
+
+  return r;
+
+}, {});
+
+const tripEventList = Object.entries(trips);
 
 const mainHeader = document.querySelector(`.page-header`);
 const eventHeaderInfo = mainHeader.querySelector(`.trip-main`);
@@ -24,26 +50,18 @@ const mainTag = document.querySelector(`.page-body__page-main`);
 const tripEvents = mainTag.querySelector(`.trip-events`);
 
 render(tripEvents, createSortTemplate(), `beforeend`);
-render(tripEvents, createEventNewDestinationTemplate(), `beforeend`);
 render(tripEvents, createEventDayList(), `beforeend`);
 
 const tripDayList = tripEvents.querySelector(`.trip-days`);
 
-for (let i = 0; i < EVENT_COUNT; i++) {
-  render(tripDayList, createEventDay(i + 1), `beforeend`);
-}
-
-const tripDayItems = tripEvents.querySelectorAll(`.trip-days__item`);
-
-tripDayItems.forEach(function (list) {
-  render(list, createEventList(), `beforeend`);
+tripEventList.forEach(function (day, index) {
+  render(tripDayList, createEventDay(day, index), `beforeend`);
+  const tripDayItem = tripEvents.querySelectorAll(`.trip-days__item`);
+  render(tripDayItem[index], createEventList(), `beforeend`);
+  const tripEventsList = tripEvents.querySelectorAll(`.trip-events__list`);
+  day[1].forEach(function (event) {
+    render(tripEventsList[index], createEventItemTemplate(event), `beforeend`);
+  });
 });
 
-const tripEventsList = tripEvents.querySelectorAll(`.trip-events__list`);
-
-tripEventsList.forEach(function (list) {
-  for (let i = 0; i < EVENT_COUNT; i++) {
-    render(list, createEventItemTemplate(), `beforeend`);
-  }
-  render(list, createEventEditTemplate(), `beforeend`);
-});
+console.log(trips);
