@@ -13,10 +13,10 @@ export const MONTHS = [
   `Dec`
 ];
 
-export const DATE_VALUE = {
-  day: 86400000,
-  hour: 3600000,
-  minutes: 6000
+export const unixDateValue = {
+  DAY: 86400000,
+  HOUR: 3600000,
+  MINUTES: 60000
 };
 
 export const SPREADS_DAY = [

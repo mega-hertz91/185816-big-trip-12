@@ -1,5 +1,5 @@
 import {MONTHS} from "./const";
-import {DATE_VALUE} from "./const";
+import {unixDateValue} from "./const";
 
 export const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -31,18 +31,18 @@ export const getDateDiff = (dateStart, dateFinish) => {
   let hour = 0;
   let minutes = 0;
 
-  if (currentDate > DATE_VALUE.day) {
-    day = Math.floor(currentDate / 1000 / 60 / 60 / 24).toFixed(0);
-    currentDate = currentDate - (day * DATE_VALUE.day);
+  if (currentDate > unixDateValue.DAY) {
+    day = Math.floor(currentDate / unixDateValue.DAY).toFixed(0);
+    currentDate = currentDate - (day * unixDateValue.DAY);
   }
 
-  if (currentDate > DATE_VALUE.hour) {
-    hour = Math.floor(currentDate / 1000 / 60 / 60).toFixed(0);
-    currentDate = currentDate - (hour * DATE_VALUE.hour);
+  if (currentDate > unixDateValue.HOUR) {
+    hour = Math.floor(currentDate / unixDateValue.HOUR).toFixed(0);
+    currentDate = currentDate - (hour * unixDateValue.HOUR);
   }
 
-  if (currentDate > DATE_VALUE.minutes) {
-    minutes = Math.floor(currentDate / 1000 / 60).toFixed(0);
+  if (currentDate > unixDateValue.MINUTES) {
+    minutes = Math.floor(currentDate / unixDateValue.MINUTES).toFixed(0);
   }
 
   return {day, hour, minutes};
