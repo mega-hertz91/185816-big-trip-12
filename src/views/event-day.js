@@ -1,4 +1,4 @@
-import {parseDateDayFormat} from "../mock/trip";
+import {parseDateDayFormat} from "../utils";
 
 export const createEventDay = (day, index) => {
   const date = new Date(day[0]);

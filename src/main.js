@@ -3,14 +3,11 @@ import {createMenuTemplate} from "./views/menu";
 import {createFilterTemplate} from "./views/filter";
 import {createSortTemplate} from "./views/sort";
 import {createEventItemTemplate} from "./views/event-item";
-import {createEventEditTemplate} from "./views/event-edit-item";
 import {createEventList} from "./views/event-list";
 import {createEventDay} from "./views/event-day";
 import {createEventDayList} from "./views/event-day-list";
-import {createEventNewDestinationTemplate} from "./views/event-new-destination";
 import {render} from "./utils";
 import {renderPointTripItem} from "./mock/trip";
-import {parseDateDayFormat} from "./mock/trip";
 
 const TRIPS_COUNT = 20;
 const tripList = new Array(TRIPS_COUNT).fill().map(renderPointTripItem);
