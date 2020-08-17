@@ -88,3 +88,17 @@ export const generateDateRoute = (dates) => {
     return start.join(` `) + ` &mdash; ` + finish.join(` `);
   }
 };
+
+export const getDateFormatEdit = (dateStr) => {
+  const date = new Date(dateStr);
+  const formatter = new Intl.DateTimeFormat(`en-US`, {
+    year: `numeric`,
+    month: `numeric`,
+    day: `numeric`,
+    hour: `numeric`,
+    minute: `numeric`,
+    hour12: false,
+    formatMatcher: `basic`
+  });
+  return formatter.format(date);
+};
