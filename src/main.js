@@ -6,32 +6,16 @@ import {createEventItemTemplate} from "./views/event-item";
 import {createEventList} from "./views/event-list";
 import {createEventDay} from "./views/event-day";
 import {createEventDayList} from "./views/event-day-list";
-import {render} from "./utils";
+import {makeRoute, render, sortEventsByDate, splitIntoDays} from "./utils";
 import {renderPointTripItem} from "./mock/trip";
 
-const TRIPS_COUNT = 20;
+const TRIPS_COUNT = 15;
 const tripList = new Array(TRIPS_COUNT).fill().map(renderPointTripItem);
 
-tripList.sort(function (a, b) {
-  if (a.dateStart > b.dateStart) {
-    return 1;
-  }
-  if (a.dateStart < b.dateStart) {
-    return -1;
-  }
+tripList.sort(sortEventsByDate);
+const route = makeRoute(tripList);
 
-  return 0;
-});
-
-const trips = tripList.reduce((r, a) => {
-
-  r[a.dateStart] = r[a.dateStart] || [];
-
-  r[a.dateStart].push(a);
-
-  return r;
-
-}, {});
+const trips = tripList.reduce(splitIntoDays, {});
 
 const tripEventList = Object.entries(trips);
 
@@ -39,7 +23,7 @@ const mainHeader = document.querySelector(`.page-header`);
 const eventHeaderInfo = mainHeader.querySelector(`.trip-main`);
 const mainControls = eventHeaderInfo.querySelector(`.trip-main__trip-controls`);
 
-render(eventHeaderInfo, createInformationTemplate(), `afterbegin`);
+render(eventHeaderInfo, createInformationTemplate(route), `afterbegin`);
 render(mainControls, createMenuTemplate(), `afterbegin`);
 render(mainControls, createFilterTemplate(), `beforeend`);
 
@@ -60,5 +44,3 @@ tripEventList.forEach(function (day, index) {
     render(tripEventsList[index], createEventItemTemplate(event), `beforeend`);
   });
 });
-
-console.log(trips);

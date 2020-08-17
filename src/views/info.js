@@ -1,12 +1,12 @@
-export const createInformationTemplate = () => {
+export const createInformationTemplate = (route) => {
   return (
     `<section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
-        <h1 class="trip-info__title">Amsterdam — Chamonix — Geneva</h1>
-         <p class="trip-info__dates">Mar 18&nbsp;—&nbsp;20</p>
+        <h1 class="trip-info__title">${route.cities}</h1>
+         <p class="trip-info__dates">${route.dates}</p>
       </div>
       <p class="trip-info__cost">
-        Total: €&nbsp;<span class="trip-info__cost-value">1230</span>
+        Total: €&nbsp;<span class="trip-info__cost-value">${route.value}</span>
       </p>
     </section>`
   );

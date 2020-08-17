@@ -1,5 +1,4 @@
-import {MONTHS} from "./const";
-import {unixDateValue} from "./const";
+import {MONTHS, unixDateValue} from "./const";
 
 export const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -46,4 +45,46 @@ export const getDateDiff = (dateStart, dateFinish) => {
   }
 
   return {day, hour, minutes};
+};
+
+export const sortEventsByDate = (a, b) => {
+  if (a.dateStart > b.dateStart) {
+    return 1;
+  }
+  if (a.dateStart < b.dateStart) {
+    return -1;
+  }
+  return 0;
+};
+export const splitIntoDays = (r, a) => {
+  r[a.dateStart] = r[a.dateStart] || [];
+  r[a.dateStart].push(a);
+  return r;
+};
+
+export const makeRoute = (tripList) => {
+  const cities = new Set();
+  let value = 0;
+  const dates = new Set();
+  tripList.forEach(function (trip) {
+    cities.add(trip.destination);
+    value = value + trip.value;
+    dates.add(parseDateDayFormat(trip.dateStart));
+  });
+  return {
+    cities: [...cities].join(` &mdash; `),
+    value,
+    dates: generateDateRoute([...dates])
+  };
+};
+
+export const generateDateRoute = (dates) => {
+  const start = dates[0].split(` `);
+  const finish = dates[dates.length - 1].split(` `);
+
+  if (start[0] === finish[0]) {
+    return start.join(` `) + ` &mdash; ` + finish[1];
+  } else {
+    return start.join(` `) + ` &mdash; ` + finish.join(` `);
+  }
 };

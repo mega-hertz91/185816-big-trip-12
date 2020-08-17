@@ -36,11 +36,11 @@ const offers = [
 ];
 
 const values = [
-  `450`,
-  `120`,
-  `250`,
-  `960`,
-  `140`
+  450,
+  120,
+  250,
+  960,
+  140
 ];
 
 const descriptions = [

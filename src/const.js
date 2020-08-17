@@ -21,6 +21,6 @@ export const unixDateValue = {
 
 export const SPREADS_DAY = [
   86401900,
-  17283200,
-  259209150
+  517283200,
+  959209150
 ];
