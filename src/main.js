@@ -7,7 +7,8 @@ import {createEventList} from "./views/event-list";
 import {createEventDay} from "./views/event-day";
 import {createEventDayList} from "./views/event-day-list";
 import {makeRoute, render, sortEventsByDate, splitIntoDays} from "./utils";
-import {renderPointTripItem} from "./mock/trip";
+import {offers, renderPointTripItem} from "./mock/trip";
+import {createEventEditTemplate} from "./views/event-edit-item";
 
 const TRIPS_COUNT = 15;
 const tripList = new Array(TRIPS_COUNT).fill().map(renderPointTripItem);
@@ -44,3 +45,6 @@ tripEventList.forEach(function (day, index) {
     render(tripEventsList[index], createEventItemTemplate(event), `beforeend`);
   });
 });
+
+const tripFirstEventList = tripEvents.querySelector(`.trip-events__list`);
+render(tripFirstEventList, createEventEditTemplate(tripEventList[0][1][0], offers), `afterbegin`);

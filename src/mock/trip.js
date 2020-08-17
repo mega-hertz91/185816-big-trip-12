@@ -28,11 +28,23 @@ const destinations = [
   `Geneva`
 ];
 
-const offers = [
-  `Add language + 30`,
-  `Travel by train + 40`,
-  `Add meal +15`,
-  `Choose seats + 5`
+export const offers = [
+  {
+    name: `Add language`,
+    value: 30
+  },
+  {
+    name: `Travel by train`,
+    value: 40
+  },
+  {
+    name: `Add meal`,
+    value: 15
+  },
+  {
+    name: `Choose seats`,
+    value: 5
+  }
 ];
 
 const values = [
@@ -91,7 +103,7 @@ export const renderPointTripItem = () => {
     dateFinish,
     dateDiff: getDateDiff(dateStart, dateFinish),
     value: values[getRandomInteger(0, values.length - 1)],
-    offers: getOffers(),
+    offers,
     parseDateDayFormat,
     parseDateTimeFormat,
   };
