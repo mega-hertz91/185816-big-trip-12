@@ -103,7 +103,7 @@ export const renderPointTripItem = () => {
     dateFinish,
     dateDiff: getDateDiff(dateStart, dateFinish),
     value: values[getRandomInteger(0, values.length - 1)],
-    offers,
+    offers: getOffers,
     parseDateDayFormat,
     parseDateTimeFormat,
   };
