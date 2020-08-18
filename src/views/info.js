@@ -1,4 +1,6 @@
-export const createInformationTemplate = (route) => {
+import View from "./view";
+
+const createInformationTemplate = (route) => {
   return (
     `<section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
@@ -11,3 +13,15 @@ export const createInformationTemplate = (route) => {
     </section>`
   );
 };
+
+export default class InfoView extends View {
+  constructor(route) {
+    super();
+
+    this._route = route;
+  }
+
+  getTemplate() {
+    return createInformationTemplate(this._route);
+  }
+}

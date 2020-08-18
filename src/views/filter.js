@@ -1,4 +1,6 @@
-export const createFilterTemplate = () => {
+import View from "./view";
+
+const createFilterTemplate = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
       <div class="trip-filters__filter">
@@ -17,3 +19,9 @@ export const createFilterTemplate = () => {
     </form>`
   );
 };
+
+export default class MainFilterView extends View {
+  getTemplate() {
+    return createFilterTemplate();
+  }
+}
