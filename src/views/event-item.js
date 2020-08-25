@@ -1,4 +1,6 @@
-export const createEventItemTemplate = (event) => {
+import View from "./view";
+
+const createEventItemTemplate = (event) => {
   return (
     `<li class="trip-events__item">
                   <div class="event">
@@ -40,3 +42,14 @@ export const createEventItemTemplate = (event) => {
                 </li>`
   );
 };
+
+export default class EventItemView extends View {
+  constructor(event) {
+    super();
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createEventItemTemplate(this._event);
+  }
+}

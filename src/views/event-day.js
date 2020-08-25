@@ -1,6 +1,7 @@
 import {parseDateDayFormat} from "../utils";
+import View from "./view";
 
-export const createEventDay = (day, index) => {
+const createEventDay = (day, index) => {
   const date = new Date(day[0]);
 
   return (
@@ -12,3 +13,15 @@ export const createEventDay = (day, index) => {
             </li>`
   );
 };
+
+export default class EventDayView extends View {
+  constructor(day, index) {
+    super();
+    this._day = day;
+    this._index = index;
+  }
+
+  getTemplate() {
+    return createEventDay(this._day, this._index);
+  }
+}

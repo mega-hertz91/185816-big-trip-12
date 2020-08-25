@@ -5,7 +5,7 @@ const createEventDayList = () => {
     `<ul class="trip-days">`
   );
 };
-export default class EventDayList extends View {
+export default class EventDayListView extends View {
   getTemplate() {
     return createEventDayList();
   }
