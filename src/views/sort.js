@@ -32,5 +32,7 @@ const createSortTemplate = () => {
 };
 
 export default class MainSortView extends View {
-
+  getTemplate() {
+    return createSortTemplate();
+  }
 }

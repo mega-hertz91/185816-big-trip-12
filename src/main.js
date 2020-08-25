@@ -1,11 +1,11 @@
-import InfoView, {createInformationTemplate} from "./views/info";
-import MainMenuView, {createMenuTemplate} from "./views/menu";
-import MainFilterView, {createFilterTemplate} from "./views/filter";
-import {createSortTemplate} from "./views/sort";
+import InfoView from "./views/info";
+import MainMenuView from "./views/menu";
+import MainFilterView from "./views/filter";
+import MainSortView from "./views/sort";
 import {createEventItemTemplate} from "./views/event-item";
 import {createEventList} from "./views/event-list";
 import {createEventDay} from "./views/event-day";
-import {createEventDayList} from "./views/event-day-list";
+import EventDayList from "./views/event-day-list";
 import {makeRoute, sortEventsByDate, splitIntoDays} from "./utils";
 import {offers, renderPointTripItem} from "./mock/trip";
 import {render, RenderPosition} from "./utils/render.js";
@@ -31,5 +31,5 @@ render(mainControls, new MainFilterView(), RenderPosition.BEFOREEND);
 const mainTag = document.querySelector(`.page-body__page-main`);
 const tripEvents = mainTag.querySelector(`.trip-events`);
 
-render(tripEvents, createSortTemplate(), `beforeend`);
-render(tripEvents, createEventDayList(), `beforeend`);
+render(tripEvents, new MainSortView(), RenderPosition.BEFOREEND);
+render(tripEvents, new EventDayList(), RenderPosition.BEFOREEND);
