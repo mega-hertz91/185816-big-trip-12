@@ -22,6 +22,8 @@ export const render = (container, child, place) => {
       container.append(child);
       break;
   }
+
+  return child;
 };
 
 export const renderTemplate = (container, template, place) => {

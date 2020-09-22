@@ -1,48 +1,40 @@
-import EventDayListView from "../views/event-day-list";
-import EventListView from "../views/event-list";
 import EventItemView from "../views/event-item";
+import EventItemEditView from "../views/event-edit-item";
 import {render, RenderPosition} from "../utils/render";
-import EventDayView from "../views/event-day";
 
 export default class Event {
-  constructor(list) {
-    this._list = list;
-    this._eventDayListComponent = new EventDayListView();
-    this._eventList = new EventListView();
+  // Класс одного события
+  constructor(data) {
+    this._data = data;
+    this._templateItem = new EventItemView(this._data);
+    this._templateItemEdit = new EventItemEditView(this._data);
   }
 
-  init() {
-    let list = this._list.slice();
-    list = list.sort(this._sortEventsByDate);
-    list = list.reduce(this._splitIntoDays, {});
-
-    console.log(this._renderEventList());
+  init(targetList) {
+    this.getItem();
+    this.element = render(targetList, this.getItem(), RenderPosition.BEFOREEND);
+    this.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventOpenForm(this));
   }
 
-  _sortEventsByDate(a, b) {
-    if (a.dateStart > b.dateStart) {
-      return 1;
-    }
-    if (a.dateStart < b.dateStart) {
-      return -1;
-    }
-    return 0;
+  getItem() {
+    return this._templateItem;
   }
 
-  _splitIntoDays(r, a) {
-    r[a.dateStart] = r[a.dateStart] || [];
-    r[a.dateStart].push(a);
-    return r;
+  getItemEdit() {
+    return this._templateItemEdit;
   }
 
-  _renderEventList(list) {
-    list.forEach((day, index) => {
-      render(this._eventDayListComponent, new EventDayView(day, index), RenderPosition.BEFOREEND);
-    });
+  _eventOpenForm(proto) {
+    return () => {
+      proto.element.innerHTML = proto.getItemEdit().getTemplate();
+      proto.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventCloseForm(proto));
+    };
   }
 
-  _renderItemEvent(event) {
-    const item = new EventItemView(event);
-    return render(this._eventList, item, RenderPosition.BEFOREEND);
+  _eventCloseForm(proto) {
+    return () => {
+      proto.element.innerHTML = proto.getItem().getTemplate();
+      proto.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventOpenForm(proto));
+    };
   }
 }
