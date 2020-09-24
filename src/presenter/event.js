@@ -1,6 +1,6 @@
 import EventItemView from "../views/event-item";
 import EventItemEditView from "../views/event-edit-item";
-import {render, RenderPosition} from "../utils/render";
+import {render, RenderPosition, replace} from "../utils/render";
 
 export default class Event {
   // Класс одного события
@@ -11,30 +11,27 @@ export default class Event {
   }
 
   init(targetList) {
-    this.getItem();
-    this.element = render(targetList, this.getItem(), RenderPosition.BEFOREEND);
-    this.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventOpenForm(this));
+    render(targetList, this._templateItem, RenderPosition.BEFOREEND);
+    this._templateItem
+      .getElement()
+      .querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, this._eventOpenForm());
+
+    this._templateItemEdit
+      .getElement()
+      .querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, this._eventCloseForm());
   }
 
-  getItem() {
-    return this._templateItem;
-  }
-
-  getItemEdit() {
-    return this._templateItemEdit;
-  }
-
-  _eventOpenForm(proto) {
+  _eventOpenForm() {
     return () => {
-      proto.element.innerHTML = proto.getItemEdit().getTemplate();
-      proto.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventCloseForm(proto));
+      replace(this._templateItemEdit, this._templateItem);
     };
   }
 
-  _eventCloseForm(proto) {
+  _eventCloseForm() {
     return () => {
-      proto.element.innerHTML = proto.getItem().getTemplate();
-      proto.element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._eventOpenForm(proto));
+      replace(this._templateItem, this._templateItemEdit);
     };
   }
 }
