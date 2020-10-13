@@ -1,6 +1,5 @@
 import EventDayListView from "../views/event-day-list";
 import EventListView from "../views/event-list";
-import EventItemView from "../views/event-item";
 import {render, RenderPosition} from "../utils/render";
 import EventDayView from "../views/event-day";
 import EventNoPointsView from "../views/no-points";
@@ -10,7 +9,6 @@ export default class Board {
   constructor(list) {
     this._list = list;
     this._eventDayList = new EventDayListView();
-    this._eventList = new EventListView();
     this._eventBlock = document.querySelector(`.trip-events`);
   }
 
@@ -62,9 +60,5 @@ export default class Board {
 
   _renderEventDay(day, index) {
     return new EventDayView(day, index);
-  }
-
-  _renderItemEvent(event) {
-    return new EventItemView(event);
   }
 }
