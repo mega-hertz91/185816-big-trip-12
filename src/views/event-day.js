@@ -2,7 +2,7 @@ import {parseDateDayFormat} from "../utils";
 import View from "./view";
 
 const createEventDay = (day, index) => {
-  const date = new Date(day[0]);
+  const date = new Date(day);
 
   return (
     `<li class="trip-days__item  day">
